@@ -19,9 +19,12 @@ const ActiveAgents: React.FC<ActiveAgentsProps> = ({ agents, loading }) => {
         <User className="w-6 h-6" />
         <span>Active Agents</span>
       </h2>
-      {agents.map((agent) => (
-        <AgentItem agent={agent} key={agent.id} />
-      ))}
+      {agents.map(
+        (agent) =>
+          agent.assignedTasks.length > 0 && (
+            <AgentItem agent={agent} key={agent.id} />
+          )
+      )}
     </div>
   );
 };

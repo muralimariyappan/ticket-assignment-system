@@ -9,9 +9,11 @@ import TicketQueueContainer from '@/features/ticket/TicketQueueContainer';
 export default function Home() {
   const { agents, loading } = useAgents();
   return (
-    <>
-      <Dashboard />
-      <div className="flex">
+    <div className="flex flex-col gap-6">
+      <div>
+        <Dashboard />
+      </div>
+      <div className="flex gap-6">
         <div className="flex-1">
           <TicketQueueContainer />
         </div>
@@ -19,7 +21,9 @@ export default function Home() {
           <AgentWorkload agents={agents} loading={loading} />
         </div>
       </div>
-      <ActiveAgents agents={agents} loading={loading} />
-    </>
+      <div>
+        <ActiveAgents agents={agents} loading={loading} />
+      </div>
+    </div>
   );
 }
