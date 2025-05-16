@@ -13,5 +13,5 @@ export function useDashboardData() {
       .finally(() => setLoading(false));
   }, []);
 
-  return { data, loading };
+  return { dashboardData: data, isDashboardLoading: loading };
 }
