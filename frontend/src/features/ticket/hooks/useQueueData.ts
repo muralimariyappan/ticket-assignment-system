@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getQueue } from '@/lib/api/queue';
-import { QueueData } from '@/features/dashboard/types';
+import { QueueData } from '../types';
 
 export const useQueueData = () => {
   const [data, setData] = useState<QueueData | null>(null);

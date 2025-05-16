@@ -1,4 +1,4 @@
-import { QueuedTicket, QueueData } from '@/features/dashboard/types';
+import { QueuedTicket, QueueData } from '@/features/ticket/types';
 
 export interface QueueResponse {
   voice_queue: RawQueuedTicket[];

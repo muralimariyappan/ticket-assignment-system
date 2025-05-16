@@ -1,7 +1,7 @@
 // lib/api/queue.ts
 
 import { BASE_URL } from '@/constants/api-endpoints';
-import { QueueData } from '@/features/dashboard/types';
+import { QueueData } from '@/features/ticket/types';
 import { mapQueueData } from '@/lib/mappers/queueMapper';
 
 export const getQueue = async (): Promise<QueueData> => {
