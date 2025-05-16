@@ -1,7 +1,7 @@
 import React from 'react';
 import { Progress } from '@/components/ui/progress';
 import { Agent } from '../types';
-import { WORKlOAD_TYPES } from '@/constants/workload';
+import { getCallsAssignedCount, getChatsAssignedCount } from '../utils';
 
 interface AgentWorkloadItemProps {
   agent: Agent;
@@ -12,33 +12,29 @@ type Status = 'Available' | 'Busy';
 const AgentWorkloadItem: React.FC<AgentWorkloadItemProps> = ({
   agent,
 }: AgentWorkloadItemProps) => {
-  const MAX_CHAT_TASKS_CAPACITY = 3;
-  const MAX_CALL_TASKS_CAPACITY = 1;
-
   const languageSkillsCount = agent.languageSkills.length;
 
-  let workloadPercent = 0;
-
-  const callsAssignedCount = agent.assignedTasks.filter(
-    (task) => task.platform === WORKlOAD_TYPES.CALL
-  ).length;
-
-  const chatsAssignedCount = agent.assignedTasks.filter(
-    (task) => task.platform === WORKlOAD_TYPES.CHAT
-  ).length;
-
-  if (callsAssignedCount > 0) {
-    workloadPercent =
-      (callsAssignedCount / MAX_CALL_TASKS_CAPACITY) * 100 +
-      (chatsAssignedCount / MAX_CHAT_TASKS_CAPACITY) * 100;
-  } else {
-    workloadPercent = (chatsAssignedCount / MAX_CHAT_TASKS_CAPACITY) * 100;
-  }
+  const getWorkloadPercent = (agent: Agent) => {
+    const callsAssignedCount = getCallsAssignedCount(agent);
+    const chatsAssignedCount = getChatsAssignedCount(agent);
+    const MAX_CAPACITY_WITH_CALL = 3;
+    const MAX_CAPACITY_WITHOUT_CALL = 4;
+    if (callsAssignedCount > 0) {
+      return (
+        ((callsAssignedCount + chatsAssignedCount) / MAX_CAPACITY_WITH_CALL) *
+        100
+      );
+    } else {
+      return (chatsAssignedCount / MAX_CAPACITY_WITHOUT_CALL) * 100;
+    }
+  };
 
   const statusColor = {
     Available: 'text-green-600',
     Busy: 'text-yellow-600',
   };
+
+  const workloadPercent = getWorkloadPercent(agent);
 
   const status: Status = workloadPercent === 100 ? 'Busy' : 'Available';
 
