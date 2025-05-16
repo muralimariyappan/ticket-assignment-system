@@ -1,15 +1,17 @@
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+'use client';
 
-function Dashboard() {
+import { useDashboardData } from './hooks/useDashboardData';
+import { SystemStatus } from './components/SystemStatus';
+
+export default function DashboardPage() {
+  const { data, loading } = useDashboardData();
+
+  if (loading || !data) return <div className="p-4">Loading...</div>;
+
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!</p>
-      <Button variant="outline">Click Me</Button>
-      <Progress value={50} />
+    <div className="space-y-4 p-6">
+      <SystemStatus data={data} />
+      {/* TicketQueue, AgentWorkload, ActiveAgents to follow */}
     </div>
   );
 }
-
-export default Dashboard;
