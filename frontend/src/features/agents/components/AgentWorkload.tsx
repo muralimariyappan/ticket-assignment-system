@@ -1,0 +1,27 @@
+import { Agent } from '../types';
+import AgentWorkloadItem from './AgentWorkloadItem';
+
+interface AgentWorkloadProps {
+  agents: Agent[];
+  loading?: boolean;
+  error?: string;
+}
+
+function AgentWorkload({ agents, loading }: AgentWorkloadProps) {
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  return (
+    <div className="p-4 border rounded-xl shadow-sm">
+      <h2 className="text-xl font-semibold mb-4">Agent Workload</h2>
+      {agents.map((agent) => (
+        <AgentWorkloadItem key={agent.id} agent={agent} />
+      ))}
+      {agents.length === 0 && (
+        <p className="text-muted-foreground">No agents available</p>
+      )}
+    </div>
+  );
+}
+
+export default AgentWorkload;

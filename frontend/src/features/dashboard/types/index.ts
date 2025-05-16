@@ -1,13 +1,6 @@
-export interface Task {
-  id: string;
-  platform: string;
-}
+import { Agent as AgentFeature } from '@/features/agents/types';
 
-export interface Agent {
-  id: string;
-  languageSkills: string[];
-  assignedTasks: Task[];
-}
+export type Agent = Pick<AgentFeature, 'languageSkills' | 'assignedTasks'>;
 
 export interface DashboardData {
   assignedTicketIds: string[];
