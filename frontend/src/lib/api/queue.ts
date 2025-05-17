@@ -1,15 +1,15 @@
 // lib/api/queue.ts
 
-import { BASE_URL } from '@/constants/api-endpoints';
 import { QueueData } from '@/features/ticket/types';
-import { mapQueueData } from '@/lib/mappers/queueMapper';
+import { mapQueueData, QueueResponse } from '@/lib/mappers/queueMapper';
+import { apiClient } from '../api-client';
+import { getCustomError } from '../error-handler';
 
 export const getQueue = async (): Promise<QueueData> => {
-  const res = await fetch(`${BASE_URL}/queue`);
-  if (!res.ok) {
-    throw new Error('Failed to fetch queue data');
+  try {
+    const data: QueueResponse = await apiClient('/queue');
+    return mapQueueData(data);
+  } catch (error) {
+    throw getCustomError('Failed to fetch queue data', error);
   }
-
-  const data = await res.json();
-  return mapQueueData(data);
 };
