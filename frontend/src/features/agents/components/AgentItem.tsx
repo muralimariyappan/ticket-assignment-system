@@ -65,18 +65,20 @@ function AgentItem({
             {callsAssignedCount}
             <MessageSquare className="w-4 h-4 text-muted-foreground ml-4" />
             {chatsAssignedCount}
-            <Button
-              onClick={() => setOpen(!open)}
-              size="icon"
-              variant="ghost"
-              className="h-6 w-6 ml-2"
-            >
-              {open ? (
-                <ChevronUp className="h-4 w-4" />
-              ) : (
-                <ChevronDown className="h-4 w-4" />
-              )}
-            </Button>
+            {onCloseTask && (
+              <Button
+                onClick={() => setOpen(!open)}
+                size="icon"
+                variant="ghost"
+                className="h-6 w-6 ml-2"
+              >
+                {open ? (
+                  <ChevronUp className="h-4 w-4" />
+                ) : (
+                  <ChevronDown className="h-4 w-4" />
+                )}
+              </Button>
+            )}
           </div>
 
           <div className="absolute top-2 right-2 hidden group-hover:flex gap-2">

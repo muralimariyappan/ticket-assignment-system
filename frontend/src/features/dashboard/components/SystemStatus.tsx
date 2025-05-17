@@ -5,6 +5,8 @@ import { resetSystem } from '@/lib/api/dashboard';
 import { DashboardData } from '../types';
 import { WORKLOAD_TYPES } from '@/constants/workload';
 import { countAssignedTasksByPlatform } from '@/features/dashboard/utils';
+import { useState } from 'react';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 
 interface Props {
   data: DashboardData | null;
@@ -13,6 +15,7 @@ interface Props {
 }
 
 export function SystemStatus({ data, loading, error }: Props) {
+  const [open, setOpen] = useState(false);
   const handleReset = async () => {
     await resetSystem();
     window.location.reload();
@@ -26,9 +29,18 @@ export function SystemStatus({ data, loading, error }: Props) {
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">System Status</h2>
         {error && <div className="text-red-500 text-sm">{error}</div>}
-        <Button onClick={handleReset} variant="destructive">
+        <Button onClick={() => setOpen(true)} variant="destructive">
           Reset System
         </Button>
+        <ConfirmDialog
+          open={open}
+          setOpen={setOpen}
+          title="Reset System"
+          description="Are you sure you want to reset the system? This action cannot be undone."
+          confirmText="Reset"
+          cancelText="Cancel"
+          onConfirm={handleReset}
+        />
       </div>
       <div className="flex items-center justify-between gap-6 mt-2">
         <div>
