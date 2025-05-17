@@ -1,3 +1,7 @@
+## Requirements
+
+- Node.js
+
 # Setup
 
 ```
