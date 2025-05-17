@@ -32,6 +32,7 @@ function AgentItem({
         <div className="flex-1">
           <div className="font-semibold">{agent.name}</div>
           <div className="text-sm text-muted-foreground pt-2">
+            {agent.languageSkills.length === 0 && 'No languages assigned'}
             {agent.languageSkills.map((lang) => (
               <Badge key={lang} variant="outline" className="mr-1">
                 {lang}

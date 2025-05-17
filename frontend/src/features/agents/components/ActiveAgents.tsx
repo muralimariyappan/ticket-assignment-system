@@ -10,6 +10,7 @@ type ActiveAgentsProps = {
 };
 
 const ActiveAgents: React.FC<ActiveAgentsProps> = ({ agents, loading }) => {
+  const activeAgents = agents.filter((agent) => agent.assignedTasks.length > 0);
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -19,12 +20,12 @@ const ActiveAgents: React.FC<ActiveAgentsProps> = ({ agents, loading }) => {
         <User className="w-6 h-6" />
         <span>Active Agents</span>
       </h2>
-      {agents.map(
-        (agent) =>
-          agent.assignedTasks.length > 0 && (
-            <AgentItem agent={agent} key={agent.id} />
-          )
+      {activeAgents.length === 0 && (
+        <p className="text-muted-foreground">No active agents</p>
       )}
+      {activeAgents.map((agent) => (
+        <AgentItem agent={agent} key={agent.id} />
+      ))}
     </div>
   );
 };

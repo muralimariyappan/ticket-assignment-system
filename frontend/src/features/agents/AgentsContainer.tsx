@@ -15,7 +15,7 @@ const AgentsContainer = () => {
   const [name, setName] = useState('');
   const [languages, setLanguages] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const { agents, loading, loadAgents, addAgent, editAgent, deleteAgent } =
+  const { agents, loading, error, addAgent, editAgent, deleteAgent } =
     useAgents();
 
   const reset = async () => {
@@ -25,7 +25,6 @@ const AgentsContainer = () => {
     setName('');
     setLanguages([]);
     setIsEditing(false);
-    await loadAgents();
   };
 
   const handleAddAgent = async () => {
@@ -86,7 +85,14 @@ const AgentsContainer = () => {
         </Button>
       </div>
 
+      {error && <div className="text-red-500 text-sm">{error}</div>}
+
       <div className="grid gap-4">
+        {agents.length === 0 && (
+          <div className="text-center text-muted-foreground">
+            No agents available
+          </div>
+        )}
         {agents.map((agent) => (
           <AgentItem
             key={agent.id}
@@ -106,6 +112,7 @@ const AgentsContainer = () => {
         setName={setName}
         languages={languages}
         setLanguages={setLanguages}
+        isEditing={isEditing}
         handleAddAgent={isEditing ? handleUpdateAgent : handleAddAgent}
       />
 

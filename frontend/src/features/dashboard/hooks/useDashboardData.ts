@@ -3,15 +3,32 @@ import { getDashboardData } from '@/lib/api/dashboard';
 import { DashboardData } from '../types';
 
 export function useDashboardData() {
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
+    null
+  );
+  const [isDashboardLoading, setIsDashboardLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const getDashboard = async () => {
+    setError(null);
+    setIsDashboardLoading(true);
+    try {
+      const data = await getDashboardData();
+      setDashboardData(data);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('Failed to fetch dashboard data');
+      }
+    } finally {
+      setIsDashboardLoading(false);
+    }
+  };
 
   useEffect(() => {
-    getDashboardData()
-      .then(setData)
-      .catch(console.error)
-      .finally(() => setLoading(false));
+    getDashboard();
   }, []);
 
-  return { dashboardData: data, isDashboardLoading: loading };
+  return { dashboardData, isDashboardLoading, getDashboard, error };
 }

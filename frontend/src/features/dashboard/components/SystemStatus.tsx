@@ -9,9 +9,10 @@ import { countAssignedTasksByPlatform } from '@/features/dashboard/utils';
 interface Props {
   data: DashboardData | null;
   loading: boolean;
+  error?: string | null;
 }
 
-export function SystemStatus({ data, loading }: Props) {
+export function SystemStatus({ data, loading, error }: Props) {
   const handleReset = async () => {
     await resetSystem();
     window.location.reload();
@@ -24,6 +25,7 @@ export function SystemStatus({ data, loading }: Props) {
     <div className="p-4 border rounded-xl shadow-sm">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">System Status</h2>
+        {error && <div className="text-red-500 text-sm">{error}</div>}
         <Button onClick={handleReset} variant="outline">
           Reset System
         </Button>

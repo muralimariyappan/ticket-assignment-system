@@ -7,9 +7,14 @@ import { TicketItem } from './TicketItem';
 interface TicketQueueProps {
   queueData: QueueData | null;
   loading: boolean;
+  error?: string | null;
 }
 
-export default function TicketQueue({ queueData, loading }: TicketQueueProps) {
+export default function TicketQueue({
+  queueData,
+  loading,
+  error,
+}: TicketQueueProps) {
   if (loading) {
     return <p className="text-muted-foreground">Loading queue data...</p>;
   }
@@ -18,6 +23,8 @@ export default function TicketQueue({ queueData, loading }: TicketQueueProps) {
       <h2 className="text-xl font-semibold mb-4">
         Ticket Queue ({queueData ? queueData.total : 0})
       </h2>
+      {error && <div className="text-red-500 text-sm">{error}</div>}
+
       <Tabs defaultValue="voice" className="w-full">
         <TabsList>
           <TabsTrigger value="voice">

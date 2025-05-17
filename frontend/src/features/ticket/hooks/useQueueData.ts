@@ -5,7 +5,7 @@ import { QueueData } from '../types';
 export const useQueueData = () => {
   const [data, setData] = useState<QueueData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchQueue = async () => {
     try {
@@ -13,7 +13,11 @@ export const useQueueData = () => {
       const result = await getQueue();
       setData(result);
     } catch (err) {
-      setError(err as Error);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Failed to fetch queue data');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -23,5 +27,5 @@ export const useQueueData = () => {
     fetchQueue();
   }, []);
 
-  return { queueData: data, isQueueLoading: isLoading, isQueueError: error };
+  return { queueData: data, isQueueLoading: isLoading, error };
 };

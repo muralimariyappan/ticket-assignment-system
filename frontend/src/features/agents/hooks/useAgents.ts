@@ -21,7 +21,9 @@ export function useAgents() {
       setAgents(data);
     } catch (err) {
       if (err instanceof Error) {
-        setError(err.message ?? 'Failed to fetch agents.');
+        setError(err.message);
+      } else {
+        setError('Failed to fetch agents.');
       }
     } finally {
       setLoading(false);
@@ -41,7 +43,9 @@ export function useAgents() {
       setAgents((prev) => [...prev, created]);
     } catch (err) {
       if (err instanceof Error) {
-        setError(err.message ?? 'Failed to add agent.');
+        setError(err.message);
+      } else {
+        setError('Failed to add agent.');
       }
     } finally {
       setLoading(false);
