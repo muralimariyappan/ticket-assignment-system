@@ -1,4 +1,9 @@
-import { Agent, Task } from '@/features/agents/types';
+import {
+  Agent,
+  Task,
+  NewAgentPayload,
+  UpdateAgentPayload,
+} from '@/features/agents/types';
 
 export interface TaskResponse {
   id: string;
@@ -10,6 +15,12 @@ export interface AgentResponse {
   name: string;
   language_skills: string[];
   assigned_tasks: Task[];
+}
+
+export interface RawUpdateAgentPayload {
+  language_skills: string[];
+  add_skills: string[];
+  remove_skills: string[];
 }
 
 export function mapTask(task: TaskResponse): Task {
@@ -30,4 +41,23 @@ export function mapAgent(agent: AgentResponse): Agent {
 
 export function mapAgents(agents: AgentResponse[]): Agent[] {
   return agents.map(mapAgent);
+}
+
+export function mapNewAgentPayload(
+  agent: NewAgentPayload
+): Pick<AgentResponse, 'name' | 'language_skills'> {
+  return {
+    name: agent.name,
+    language_skills: agent.languageSkills,
+  };
+}
+
+export function mapUpdateAgentPayload(
+  updatePayload: UpdateAgentPayload
+): RawUpdateAgentPayload {
+  return {
+    language_skills: updatePayload.languageSkills,
+    add_skills: updatePayload.addSkills,
+    remove_skills: updatePayload.removeSkills,
+  };
 }

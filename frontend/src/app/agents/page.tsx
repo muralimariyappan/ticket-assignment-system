@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button';
+import AgentsContainer from '@/features/agents/AgentsContainer';
 
 export default function Agents() {
   return (
     <div>
-      <Button variant="outline">Click Me</Button>
+      <AgentsContainer />
     </div>
   );
 }
