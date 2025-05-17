@@ -23,9 +23,11 @@ const ActiveAgents: React.FC<ActiveAgentsProps> = ({ agents, loading }) => {
       {activeAgents.length === 0 && (
         <p className="text-muted-foreground">No active agents</p>
       )}
-      {activeAgents.map((agent) => (
-        <AgentItem agent={agent} key={agent.id} />
-      ))}
+      <div className="max-h-[444px] overflow-y-auto">
+        {activeAgents.map((agent) => (
+          <AgentItem agent={agent} key={agent.id} />
+        ))}
+      </div>
     </div>
   );
 };

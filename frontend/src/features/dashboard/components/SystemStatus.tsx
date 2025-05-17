@@ -26,7 +26,7 @@ export function SystemStatus({ data, loading, error }: Props) {
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">System Status</h2>
         {error && <div className="text-red-500 text-sm">{error}</div>}
-        <Button onClick={handleReset} variant="outline">
+        <Button onClick={handleReset} variant="destructive">
           Reset System
         </Button>
       </div>

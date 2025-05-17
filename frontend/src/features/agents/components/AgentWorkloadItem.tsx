@@ -39,7 +39,7 @@ const AgentWorkloadItem: React.FC<AgentWorkloadItemProps> = ({
   const status: Status = workloadPercent === 100 ? 'Busy' : 'Available';
 
   return (
-    <div className="p-4 border rounded-md shadow-sm bg-white">
+    <div className="p-4 border rounded-md shadow-sm bg-white mb-2">
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-lg font-semibold">{agent.name}</h3>
         <span className={`${statusColor[status]} font-medium`}>{status}</span>

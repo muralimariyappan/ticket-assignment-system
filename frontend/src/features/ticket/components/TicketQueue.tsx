@@ -61,7 +61,7 @@ interface QueueContentProps {
 
 const QueueContent = ({ queueData }: QueueContentProps) => {
   return (
-    <ul>
+    <ul className="h-[400px] overflow-y-auto">
       {queueData.map((ticket: QueuedTicket) => (
         <li key={ticket.ticketId}>
           <TicketItem

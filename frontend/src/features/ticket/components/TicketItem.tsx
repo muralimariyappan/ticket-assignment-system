@@ -17,7 +17,7 @@ export const TicketItem = ({
   createdAt,
 }: TicketItemProps) => {
   return (
-    <Card className="w-full shadow-sm border-muted rounded-xl p-4">
+    <Card className="w-full shadow-sm border-muted rounded-xl p-4 mb-2">
       <CardContent className="p-0">
         <div className="flex justify-between items-center">
           <div>

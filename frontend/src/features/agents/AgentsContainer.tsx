@@ -5,9 +5,10 @@ import AgentItem from './components/AgentItem';
 import { useAgents } from './hooks/useAgents';
 import AgentInputDialog from './components/AgentInputDialog';
 import { Button } from '@/components/ui/button';
-import { Agent } from './types';
+import { Agent, Task } from './types';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 import { showErrorToast, showSuccessToast } from '@/lib/utils/show-toast';
+import { useTasks } from './hooks/useTasks';
 
 const AgentsContainer = () => {
   const [openInput, setOpenInput] = useState(false);
@@ -16,8 +17,31 @@ const AgentsContainer = () => {
   const [name, setName] = useState('');
   const [languages, setLanguages] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const { agents, loading, error, addAgent, editAgent, deleteAgent } =
-    useAgents();
+  const {
+    agents,
+    loading,
+    error,
+    loadAgents,
+    addAgent,
+    editAgent,
+    deleteAgent,
+  } = useAgents();
+
+  const { closeTask } = useTasks();
+
+  const closeTaskHandler = async (agent: Agent, task: Task) => {
+    try {
+      await closeTask(agent, task);
+      showSuccessToast('Task closed successfully');
+      loadAgents();
+    } catch (error) {
+      if (error instanceof Error) {
+        showErrorToast(error.message);
+      } else {
+        showErrorToast('Failed to close task');
+      }
+    }
+  };
 
   const reset = async () => {
     setOpenInput(false);
@@ -129,7 +153,7 @@ const AgentsContainer = () => {
             onEdit={handleEditClick}
             onDelete={handleDeleteClick}
             enableEdit
-            enableDelete
+            onCloseTask={closeTaskHandler}
           />
         ))}
       </div>
