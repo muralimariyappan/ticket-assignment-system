@@ -9,6 +9,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { MultiSelect } from '@/components/ui/multi-select';
+import { LANGUAGE_OPTIONS } from '@/constants/languages';
 import { useState } from 'react';
 
 interface AgentInputDialogProps {
@@ -33,15 +34,6 @@ function AgentInputDialog({
   handleAddAgent,
 }: AgentInputDialogProps) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const supportedLanguages = [
-    'English',
-    'German',
-    'Spanish',
-    'French',
-    'Italian',
-    'Portuguese',
-    'Dutch',
-  ];
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -75,7 +67,7 @@ function AgentInputDialog({
           <div>
             <Label className="pb-2">Languages</Label>
             <MultiSelect
-              options={supportedLanguages}
+              options={LANGUAGE_OPTIONS}
               selected={languages}
               onChange={setLanguages}
             />

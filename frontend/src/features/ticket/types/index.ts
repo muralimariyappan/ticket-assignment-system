@@ -13,3 +13,9 @@ export interface QueueData {
   text: QueuedTicket[];
   total: number;
 }
+
+export interface AssignTicketPayload {
+  id: string;
+  restrictions: string[];
+  platform: string;
+}

@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { AssignTicket } from '@/features/ticket/AssignTicket';
 
 const Sidebar = () => {
   const path = usePathname();
@@ -38,9 +38,7 @@ const Sidebar = () => {
         </ScrollArea>
 
         <div className="p-4 border-t">
-          <Button className="w-full" variant="default">
-            Assign Ticket
-          </Button>
+          <AssignTicket />
         </div>
       </Card>
     </aside>

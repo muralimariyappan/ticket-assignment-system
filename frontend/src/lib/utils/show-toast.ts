@@ -10,3 +10,13 @@ export function showErrorToast(error: unknown) {
     },
   });
 }
+
+export function showSuccessToast(message: string) {
+  toast.success(message, {
+    duration: 5000,
+    action: {
+      label: 'Close',
+      onClick: () => {},
+    },
+  });
+}

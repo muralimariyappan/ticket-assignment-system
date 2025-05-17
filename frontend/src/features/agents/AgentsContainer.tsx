@@ -7,6 +7,7 @@ import AgentInputDialog from './components/AgentInputDialog';
 import { Button } from '@/components/ui/button';
 import { Agent } from './types';
 import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { showErrorToast, showSuccessToast } from '@/lib/utils/show-toast';
 
 const AgentsContainer = () => {
   const [openInput, setOpenInput] = useState(false);
@@ -28,8 +29,17 @@ const AgentsContainer = () => {
   };
 
   const handleAddAgent = async () => {
-    await addAgent({ name, languageSkills: languages });
-    await reset();
+    try {
+      await addAgent({ name, languageSkills: languages });
+      showSuccessToast('Agent added successfully');
+      await reset();
+    } catch (error) {
+      if (error instanceof Error) {
+        showErrorToast(error.message);
+      } else {
+        showErrorToast('Failed to add agent');
+      }
+    }
   };
 
   const handleUpdateAgent = async () => {
@@ -38,17 +48,36 @@ const AgentsContainer = () => {
     );
     const removeSkills =
       agent?.languageSkills.filter((lang) => !languages.includes(lang)) || [];
-    await editAgent(agent!.id, {
-      languageSkills: agent!.languageSkills,
-      addSkills,
-      removeSkills,
-    });
-    await reset();
+
+    try {
+      await editAgent(agent!.id, {
+        languageSkills: agent!.languageSkills,
+        addSkills,
+        removeSkills,
+      });
+      showSuccessToast('Agent updated successfully');
+      await reset();
+    } catch (error) {
+      if (error instanceof Error) {
+        showErrorToast(error.message);
+      } else {
+        showErrorToast('Failed to update agent');
+      }
+    }
   };
 
   const handleDeleteAgent = async () => {
-    await deleteAgent(agent!.id);
-    await reset();
+    try {
+      await deleteAgent(agent!.id);
+      showSuccessToast('Agent deleted successfully');
+      await reset();
+    } catch (error) {
+      if (error instanceof Error) {
+        showErrorToast(error.message);
+      } else {
+        showErrorToast('Failed to delete agent');
+      }
+    }
   };
 
   const handleAddClick = () => {

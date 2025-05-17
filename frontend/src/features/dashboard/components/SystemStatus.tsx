@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { resetSystem } from '@/lib/api/dashboard';
 import { DashboardData } from '../types';
-import { WORKlOAD_TYPES } from '@/constants/workload';
+import { WORKLOAD_TYPES } from '@/constants/workload';
 import { countAssignedTasksByPlatform } from '@/features/dashboard/utils';
 
 interface Props {
@@ -33,13 +33,13 @@ export function SystemStatus({ data, loading, error }: Props) {
       <div className="flex items-center justify-between gap-6 mt-2">
         <div>
           <strong>
-            {countAssignedTasksByPlatform(data.agents, WORKlOAD_TYPES.CALL)}
+            {countAssignedTasksByPlatform(data.agents, WORKLOAD_TYPES.CALL)}
           </strong>{' '}
           Active Calls
         </div>
         <div>
           <strong>
-            {countAssignedTasksByPlatform(data.agents, WORKlOAD_TYPES.CALL, {
+            {countAssignedTasksByPlatform(data.agents, WORKLOAD_TYPES.CALL, {
               exclude: true,
             })}
           </strong>{' '}

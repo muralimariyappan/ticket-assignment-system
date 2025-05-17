@@ -41,12 +41,6 @@ export function useAgents() {
     try {
       const created = await apiAddAgent(newAgent);
       setAgents((prev) => [...prev, created]);
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('Failed to add agent.');
-      }
     } finally {
       setLoading(false);
     }
@@ -61,10 +55,6 @@ export function useAgents() {
       setAgents((prev) =>
         prev.map((agent) => (agent.id === id ? updated : agent))
       );
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message ?? 'Failed to update agent.');
-      }
     } finally {
       setLoading(false);
     }
@@ -77,10 +67,6 @@ export function useAgents() {
     try {
       await apiDeleteAgent(id);
       setAgents((prev) => prev.filter((agent) => agent.id !== id));
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message ?? 'Failed to delete agent.');
-      }
     } finally {
       setLoading(false);
     }
