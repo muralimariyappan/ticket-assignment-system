@@ -43,3 +43,15 @@
 - Typescript
 - Next.js
 - Shadcn
+
+## End to end testing
+
+- Added some happy path testing
+- Could use data-testid to improve the consistency of tests
+
+## Potential issues in backend
+
+- Reset system still keeps agents in validation so after resetting cannot use the same agent name
+- Calling assign ticket and then creating an agent doesn't assign the ticket to agent.
+- Since the assignment is automated by backend and only for testing the API to assign manually is exposed, the section "Nice to Have" in requirement which says to use dynamic reassignment only from frontend doesn't seem possible.
+- If no restriction is selected when assigning ticket then it is only queued and not assigned

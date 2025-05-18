@@ -41,7 +41,11 @@ function AgentItem({
   const chatsAssignedCount = getChatsAssignedCount(agent);
 
   return (
-    <Card key={agent.id} className="group relative mb-2">
+    <Card
+      key={agent.id}
+      className="group relative mb-2"
+      data-testid="agent-card"
+    >
       <CardContent className="p-4">
         <div className="flex items-center gap-4">
           <div className="bg-muted rounded-full p-2">

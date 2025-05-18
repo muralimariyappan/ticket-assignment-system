@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { assignTicket, resetSystem } from '../common';
 
-test.describe('Dashboard Page', () => {
+test.describe.serial('Dashboard Page', () => {
   test.beforeEach(async ({ page }) => {
-    // Replace with your actual dashboard route
     await page.goto('http://localhost:3000');
   });
 
@@ -30,28 +30,13 @@ test.describe('Dashboard Page', () => {
   });
 
   test('should allow assigning a ticket', async ({ page }) => {
-    // Adjust selectors and flow as per your UI
-    const assignButton = page
-      .getByRole('button', { name: /assign ticket/i })
-      .first();
-    await assignButton.click();
-
-    const assigneeSelect = page.getByRole('combobox').last();
-    await assigneeSelect.click();
-    await page.getByRole('option', { name: 'call' }).click();
-
-    const confirmButton = page.locator('text=Assign').last();
-    await confirmButton.click();
+    await assignTicket('call', page);
 
     await expect(page.getByText('Ticket Queue (1)')).toBeVisible();
   });
 
   test('should reset the system', async ({ page }) => {
-    const resetButton = page.getByRole('button', { name: /reset system/i });
-    await resetButton.click();
-
-    const confirmButton = page.getByRole('button', { name: /reset/i });
-    await confirmButton.click();
+    await resetSystem(page);
 
     await expect(page.getByText('Ticket Queue (0)')).toBeVisible();
     await expect(page.getByText('0 Active Calls')).toBeVisible();
